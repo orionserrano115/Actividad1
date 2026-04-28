@@ -70,3 +70,85 @@
       color: #121212;
     }
   </style>
+</head>
+<body class="light">
+  <header>
+    <h1>Derivadas en Cálculo</h1>
+    <p>Teoría básica y práctica interactiva</p>
+    <button id="toggleBtn">Cambiar a modo oscuro</button>
+  </header>
+
+  <main>
+    <section>
+      <h2>📖 ¿Qué es una derivada?</h2>
+      <p>
+        La derivada de una función mide cómo cambia su valor cuando cambia la variable independiente.
+        Formalmente:
+      </p>
+      <p style="font-style:italic;">
+        \( f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h} \)
+      </p>
+      <p>
+        <strong>Interpretación geométrica:</strong> pendiente de la tangente a la curva.<br>
+        <strong>Interpretación física:</strong> velocidad instantánea si la función describe posición.
+      </p>
+    </section>
+
+    <section>
+      <h2>📘 Reglas de Derivación</h2>
+      <ul>
+        <li>Constante: \( d/dx(c) = 0 \)</li>
+        <li>Potencia: \( d/dx(x^n) = n \cdot x^{n-1} \)</li>
+        <li>Suma: \( d/dx(f+g) = f' + g' \)</li>
+        <li>Producto: \( d/dx(f \cdot g) = f'g + fg' \)</li>
+        <li>Cociente: \( d/dx(f/g) = (f'g - fg')/g^2 \)</li>
+        <li>Cadena: \( d/dx(f(g(x))) = f'(g(x)) \cdot g'(x) \)</li>
+      </ul>
+    </section>
+
+    <section class="calculadora">
+      <h2>🧮 Mini Calculadora</h2>
+      <p>Introduce una función simple (ejemplo: <code>x^2</code>, <code>x^3</code>, <code>sin(x)</code>)</p>
+      <input type="text" id="funcion" placeholder="Escribe tu función aquí">
+      <button onclick="derivar()">Calcular derivada</button>
+      <div class="resultado" id="resultado"></div>
+    </section>
+  </main>
+
+  <script>
+    // Alternar modo oscuro/claro
+    const btn = document.getElementById('toggleBtn');
+    const body = document.body;
+
+    btn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      if (body.classList.contains('dark')) {
+        btn.textContent = 'Cambiar a modo claro';
+      } else {
+        btn.textContent = 'Cambiar a modo oscuro';
+      }
+    });
+
+    // Mini motor de derivadas muy básico
+    function derivar() {
+      const f = document.getElementById('funcion').value.trim();
+      let resultado = "";
+
+      if (f === "x") {
+        resultado = "La derivada de x es 1";
+      } else if (f.match(/^x\^(\d+)$/)) {
+        const n = parseInt(f.split("^")[1]);
+        resultado = `La derivada de x^${n} es ${n}x^${n-1}`;
+      } else if (f === "sin(x)") {
+        resultado = "La derivada de sin(x) es cos(x)";
+      } else if (f === "cos(x)") {
+        resultado = "La derivada de cos(x) es -sin(x)";
+      } else {
+        resultado = "⚠️ Función no reconocida (ejemplo: x^2, sin(x), cos(x))";
+      }
+
+      document.getElementById('resultado').textContent = resultado;
+    }
+  </script>
+</body>
+</html>
